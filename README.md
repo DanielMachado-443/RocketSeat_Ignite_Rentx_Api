@@ -12,5 +12,5 @@
 - This picture will show up on what phase of the project I was at this stage.
 
 <a title="LibQuality API">
-  <img src="https://i.imgur.com/xNpNYE2.png"/>
+  <img src="https://i.imgur.com/rYtlWuN.png"/>
 </a>
