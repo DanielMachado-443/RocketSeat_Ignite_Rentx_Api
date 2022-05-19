@@ -5,14 +5,14 @@ import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 
 class CreateSpecificationController{
-    handle(request: Request, response: Response): Response {
+    async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;     
     
     const createSpecificationUseCase = container.resolve(
         CreateSpecificationUseCase
     );
 
-    createSpecificationUseCase.execute({ name, description }); // << IRequest interface type
+    await createSpecificationUseCase.execute({ name, description }); // << IRequest interface type
 
     return response.status(201).send();
     }
