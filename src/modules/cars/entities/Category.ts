@@ -10,10 +10,10 @@ class Category {
     name: string;
 
     @Column()
-    description: string;
+    description: string;    
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at: Date;    
 
     constructor() {
         if(!this.id){ //<< IF this attribute (string) are null or not
