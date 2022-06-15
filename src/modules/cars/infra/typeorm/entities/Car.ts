@@ -1,54 +1,68 @@
-import { Column, CreateDateColumn, JoinColumn, ManyToOne, PrimaryColumn, Entity } from "typeorm";
-import { v4 as uuidV4 } from "uuid"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuidV4 } from "uuid";
+
 import { Category } from "./Category";
+import { Specification } from "./Specification";
 
 @Entity("cars")
 class Car {
-    @PrimaryColumn()
-    id: string;
-    
-    @Column()
-    name: string;
+  @PrimaryColumn()
+  id: string;
 
-    @Column()
-    description: string;
+  @Column()
+  name: string;
 
-    @Column()
-    daily_rate: number;
+  @Column()
+  description: string;
 
-    @Column()
-    available: boolean;
+  @Column()
+  daily_rate: number;
 
-    @Column()
-    license_plate: string;
+  @Column()
+  available: boolean;
 
-    @Column()
-    fine_amount: number;
-    
-    @Column()
-    brand: string;
+  @Column()
+  license_plate: string;
 
-    @ManyToOne(() => Category)
-    @JoinColumn({ name: "category_id"})
-    category: Category;
+  @Column()
+  fine_amount: number;
 
-    @Column()
-    category_id: string;
+  @Column()
+  brand: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: "category_id" })
+  category: Category;
 
-    constructor(){
-        if(!this.id){
-            this.id = uuidV4();
-            this.available = true;
-            this.created_at = new Date();
-        }
+  @Column()
+  category_id: string;
+
+  @ManyToMany(() => Specification)
+  @JoinTable({
+    name: "specifications_cars",
+    joinColumns: [{ name: "car_id" }],
+    inverseJoinColumns: [{ name: "specification_id" }],
+  })
+  specifications: Specification[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+      this.available = true;
     }
+  }
 }
 
-export { Car }
-
-function CreatedDateColumn() {
-    throw new Error("Function not implemented.");
-}
+export { Car };

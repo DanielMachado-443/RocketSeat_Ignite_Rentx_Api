@@ -63,7 +63,7 @@ export class CreateCars1654231301460 implements MigrationInterface {
                  },
              ],
           })
-       );
+       );      
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

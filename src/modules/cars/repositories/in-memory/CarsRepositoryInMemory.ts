@@ -14,8 +14,8 @@ class CarsRepositoryInMemory implements ICarsRepository {
     fine_amount,
     name,
     license_plate,
+    id,
   }: ICreateCarDTO): Promise<Car> {
-
     const car = new Car();
     Object.assign(car, {
       brand,
@@ -25,6 +25,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
       fine_amount,
       name,
       license_plate,
+      id,
     });
     this.cars.push(car);
     return car; // << Is this 'car' return strict necessary?
@@ -37,48 +38,25 @@ class CarsRepositoryInMemory implements ICarsRepository {
   async findAvailable(
     brand?: string,
     category_id?: string,
-    name?: string,
+    name?: string
   ): Promise<Car[]> {
+    let availableCars = this.cars.filter((car) => car.available);
 
-    let availableCars = this.cars.filter(car => car.available)
+    if (!name && !brand && !category_id) return availableCars;
 
-    if (!name && !brand && !category_id)
-      return availableCars;
+    availableCars = availableCars.filter((car) => {
+      if (car.name === name) return true;
+      if (car.brand === brand) return true;
+      if (car.category_id === category_id) return true;
 
-    return availableCars.filter(car => {
-      if (name === car.name || brand === car.brand || category_id === car.category_id)
-        return true;
-    })
+      return false;
+    });
 
-    // FINAL TEACHER SOLUTION BELOW
-    //   let availableCars = this.cars.filter(car => car.available);
+    return availableCars;
+  }
 
-    //   if (!name && !brand && !category_id) return availableCars;
-
-    //   availableCars = availableCars.filter(car => {
-    //     if (car.name === name) return true;
-    //     if (car.brand === brand) return true;
-    //     if (car.category_id === category_id) return true;
-
-    //     return false;
-    //   });
-
-    //   return availableCars;
-    // }
-
-    // return this.cars.filter(car => { // << Teacher WRONG way below!
-    //   if (
-    //     car.available === true ||
-    //     brand && car.brand === brand ||
-    //     category_id && car.category_id === category_id ||
-    //     name && car.name === name
-    //   ) {
-    //     return car;
-    //   }
-    //   return null;    
-    // });
-
-    //Trying to make it right below, because the teacher has messed it up a little bit     
+  async findById(id: string): Promise<Car> {
+    return this.cars.find((car) => car.id === id);
   }
 }
 

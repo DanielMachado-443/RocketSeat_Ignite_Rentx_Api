@@ -14,10 +14,14 @@ class ListAvailableCarsUseCase {
   constructor(
     @inject("CarsRepository")
     private carsRepository: ICarsRepository
-  ) {}
+  ) { }
 
   async execute({ category_id, brand, name }: IRequest): Promise<Car[]> {
-    const cars = await this.carsRepository.findAvailable(brand, category_id, name);
+    const cars = await this.carsRepository.findAvailable(
+      brand,
+      category_id,
+      name
+    );
     return cars;
   }
 }
