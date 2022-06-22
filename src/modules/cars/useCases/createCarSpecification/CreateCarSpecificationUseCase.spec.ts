@@ -41,7 +41,6 @@ describe("Create Car Specification", () => {
       brand: "Brand",
       category_id: "category",
     });
-    console.log(car)
 
     const specification = await specificationsRepositoryInMemory.create({
       description: "test",

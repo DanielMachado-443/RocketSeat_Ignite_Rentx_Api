@@ -24,8 +24,6 @@ describe("List Cars", () => {
 
     const cars1 = await listAvailableCarsUseCase.execute({});
 
-    console.log(cars1);
-
     expect(cars1).toEqual([car1]);
   });
 
