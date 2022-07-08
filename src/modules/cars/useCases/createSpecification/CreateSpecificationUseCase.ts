@@ -4,30 +4,30 @@ import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecifica
 import { AppError } from "@shared/errors/AppError";
 
 
-interface IRequest{
-    name: string;
-    description: string;
+interface IRequest {
+  name: string;
+  description: string;
 }
 
 @injectable()
-class CreateSpecificationUseCase{
-    constructor(
-        @inject("SpecificationsRepository")
-        private specificationsRepository: ISpecificationsRepository
-    ){} // It receives a specificationRepository object WHEN it is initialized
+class CreateSpecificationUseCase {
+  constructor(
+    @inject("SpecificationsRepository")
+    private specificationsRepository: ISpecificationsRepository
+  ) { } // It receives a specificationRepository object WHEN it is initialized
 
-    async execute({ name, description }: IRequest): Promise<void>{
-        const specificationAlreadyExists = await this.specificationsRepository.findByName(name);
+  async execute({ name, description }: IRequest): Promise<void> {
+    const specificationAlreadyExists = await this.specificationsRepository.findByName(name);
 
-        if(specificationAlreadyExists){
-            throw new AppError("Specification already exists!", 401)
-        }
+    if (specificationAlreadyExists) {
+      throw new AppError("Specification already exists!", 400)
+    }
 
-        await this.specificationsRepository.create({ 
-            name, 
-            description, 
-        });
-    }    
+    await this.specificationsRepository.create({
+      name,
+      description,
+    });
+  }
 }
 
 export { CreateSpecificationUseCase };
