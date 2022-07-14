@@ -13,6 +13,7 @@
     "@types/jest": "^26.0.24",
     "@types/nodemailer": "^6.4.4",
     "@types/supertest": "^2.0.12",
+    "aws-sdk": "^2.1174.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "csv-parse": "^5.0.4",
