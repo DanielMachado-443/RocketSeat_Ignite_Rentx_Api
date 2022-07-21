@@ -17,7 +17,7 @@ class UserMap {
       id,
       avatar,
       driver_license,
-      avatar_url
+      avatar_url,
     });
     return user;
   }
